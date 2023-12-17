@@ -1,4 +1,3 @@
-
 /**
  * Створіть класи Circle, Rectangle, Square і Triangle.
  * У кожного з них є загальнодоступний метод calculateArea.
@@ -7,99 +6,69 @@
  * зі свого боку є ще додатковий метод print, який виводить
  * рядок із формулою розрахунку площі
  */
-
-/**
- * Abstract classes
- */
-
-
-type ColorType = number | string;
-
-abstract class BaseShape {
-	public readonly name: string;
-	public readonly color: ColorType;
-
-	constructor(name: string, color: ColorType) {
-		this.name = name;
-		this.color = color;
-	}
-
-	public abstract calculateArea(): number;
-};
-
-abstract class PritableBaseShape extends BaseShape {
-	public abstract print() : string;
+class BaseShape {
+    name;
+    color;
+    constructor(name, color) {
+        this.name = name;
+        this.color = color;
+    }
 }
-
+;
+class PritableBaseShape extends BaseShape {
+}
 /**
  * Abstract classes implementations
  */
-
-
 class Circle extends BaseShape {
-
-	constructor(name: string, color: ColorType) {
-		super(name, color);
-	}
-
-	calculateArea(): number {
-		return 10;
-	}
-};
-
+    constructor(name, color) {
+        super(name, color);
+    }
+    calculateArea() {
+        return 10;
+    }
+}
+;
 class Rectangle extends PritableBaseShape {
-
-	constructor(name: string, color: ColorType) {
-		super(name, color);
-	}
-
-	calculateArea(): number {
-		return 10;
-	}
-
-	print(): string {
-		return "width*width";
-	}
-
-};
-
+    constructor(name, color) {
+        super(name, color);
+    }
+    calculateArea() {
+        return 10;
+    }
+    print() {
+        return "width*width";
+    }
+}
+;
 class Square extends PritableBaseShape {
-
-	constructor(name: string, color: ColorType) {
-		super(name, color);
-	}
-
-	calculateArea(): number {
-		return 10;
-	}
-
-	print(): string {
-		return "width*height";
-	}
-
-};
-
+    constructor(name, color) {
+        super(name, color);
+    }
+    calculateArea() {
+        return 10;
+    }
+    print() {
+        return "width*height";
+    }
+}
+;
 class Triangle extends BaseShape {
-
-	constructor(name: string, color: ColorType) {
-		super(name, color);
-	}
-
-	calculateArea(): number {
-		return 10;
-	}
-};
-
-
+    constructor(name, color) {
+        super(name, color);
+    }
+    calculateArea() {
+        return 10;
+    }
+}
+;
 const triangle = new Triangle("SomeStriangle", 0xFFFF00);
 const square = new Square("Square Shape", 0x00FFFF);
 const rect = new Rectangle("Rectangle Shape", 0xFF00FF);
-const circle= new Circle("The Circle", 0xFF0000);
-
+const circle = new Circle("The Circle", 0xFF0000);
 console.log(triangle);
 console.log(square, square.print());
 console.log(rect, square.print());
 console.log(circle);
-
 console.log("Task completed!");
-
+//# sourceMappingURL=index.js.map
