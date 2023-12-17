@@ -18,43 +18,43 @@ type PrintType = keyof typeof Print;
 
 
 class Student {
-	badgeTypeMap = new Map<any,  any>([
+	badgeTypeMap = new Map<string,  BadgeTypesEnum>([
 		['single_fast', BadgeTypesEnum.COLOR],
 		['single_standart', BadgeTypesEnum.COLOR],
 		['double_fast', BadgeTypesEnum.MONO],
 		['double_standart', BadgeTypesEnum.MONO]
 	])
 
-	_firstName;
-	_lastName;
-	_birthYear;
-	_grades = []; // Опишите, как объект у которого есть поле workName и mark(оценка может быть выполненно или нет)
-	_visits = []; // Опишите, как объект у которого есть поле lesson (любое имя) и present
+	_firstName: string;
+	_lastName: string;
+	_birthYear: number;
+	_grades: {workName: string, mark: boolean}	[] = []; // Опишите, как объект у которого есть поле workName и mark(оценка может быть выполненно или нет)
+	_visits: {lesson: string, present: boolean}	[] = []; // Опишите, как объект у которого есть поле lesson (любое имя) и present
 
-	get fullName() {
+	get fullName(): string {
 		return `${this._lastName} ${this._firstName}`;
 	}
-	
-	set fullName(value) {
+
+	set fullName(value: string) {
 		[this._lastName, this._firstName] = value.split(' ');
 	}
 
-	get age() {
+	get age(): number {
 		return new Date().getFullYear() - this._birthYear;
 	}
 
-	constructor(firstName, lastName, birthYear) {
+	constructor(firstName: string, lastName: string, birthYear: number) {
 		this._firstName = firstName;
 		this._lastName = lastName;
 		this._birthYear = birthYear;
 	}
 
-	setGrade(grade: any) {
+	setGrade(grade: {workName: string, mark: boolean}) {
 		this._grades.push(grade);
 	}
 
-	setVisit(visit: any) {
-		this._grades.push(visit);
+	setVisit(visit: {lesson: string, present: boolean}) {
+		this._visits.push(visit);
 	}
 
 	getPerformanceRating() {
@@ -62,7 +62,7 @@ class Student {
 
 		if (!gradeValues.length) return 0;
 
-		const averageGrade = gradeValues.reduce((sum, grade) => sum + grade, 0) / gradeValues.length;
+		const averageGrade = gradeValues.reduce((sum, grade) => sum + (grade.mark ? 1 : 0), 0) / gradeValues.length;
 		const attendancePercentage = (this._visits.filter(present => present).length / this._visits.length) * 100;
 
 		return (averageGrade + attendancePercentage) / 2;
