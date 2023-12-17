@@ -16,9 +16,12 @@ enum BadgeTypesEnum {
 type BadgeSizeType = keyof typeof BadgeSize;
 type PrintType = keyof typeof Print;
 
+type FooValues =`${BadgeSizeType}_${PrintType}`;
+//const fv:FooValues = 'single_fast';
+//console.log(fv);
 
 class Student {
-	badgeTypeMap = new Map<string,  BadgeTypesEnum>([
+	badgeTypeMap = new Map<FooValues,  BadgeTypesEnum>([
 		['single_fast', BadgeTypesEnum.COLOR],
 		['single_standart', BadgeTypesEnum.COLOR],
 		['double_fast', BadgeTypesEnum.MONO],
