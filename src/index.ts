@@ -15,7 +15,22 @@
 
 type ColorType = number | string;
 
-abstract class BaseShape {
+
+interface IBaseShape {
+	readonly name: string;
+	readonly color: ColorType;
+	calculateArea(): number;
+};
+
+interface IPritable {
+	print() : string;
+}
+
+interface IPritable2 {
+	print() : string;
+}
+
+abstract class BaseShape implements IBaseShape {
 	public readonly name: string;
 	public readonly color: ColorType;
 
@@ -27,7 +42,7 @@ abstract class BaseShape {
 	public abstract calculateArea(): number;
 };
 
-abstract class PritableBaseShape extends BaseShape {
+abstract class PritableBaseShape extends BaseShape implements IPritable {
 	public abstract print() : string;
 }
 
