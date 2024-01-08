@@ -15,13 +15,13 @@ interface IUser {
 };
 
 type DeepReadonly<T> = {
-    readonly [K in keyof T]: T[K];
+    readonly [K in keyof T]: DeepReadonly<T[K]> ;
 };
 
 type UpdateUser = DeepReadonly<IUser>;
 
 let usr: UpdateUser = null;
-usr.userAddress.houseNumber = "470b";
+//usr.userAddress.houseNumber = "470b"; // Now error
 
 type UpperCaseKeys<T> = {
     [K in keyof T & string as `${Uppercase<K>}`]: T[K];
@@ -34,8 +34,12 @@ upperUser.FIRSTNAME = "theName";
 
 
 type DeepRequireReadonly<T> = {
-    readonly [K in keyof T]-?: T[K];
+    readonly [K in keyof T]-?: DeepRequireReadonly<T[K]>;
 };
+
+type DeepReadonlyUser = DeepReadonly<IUser>;
+let deepReadonlyUser: DeepReadonlyUser = null;
+//deepReadonlyUser.userAddress.city = "123";
 
 
 
