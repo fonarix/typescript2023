@@ -26,45 +26,45 @@ enum eNoteStatus {
 };
 
 interface INote {
+    //private _caption: string;
+    //private _text: string;
+    //private _date: Date;
+    //private _status: eNoteStatus;
+    //private _editAllowed: boolean;
+
+    get caption(): string;
+    set caption(inCaption: string);
+    get text(): string;
+    set text(inText: string);
+    get date(): Date;
+    set date(inDate: Date);
+    get status(): eNoteStatus;
+    set status(inStatus: eNoteStatus);
+
+    get editAllowed(): boolean;
+    set editAllowed(inEditAllowed: boolean);
+
+    isEmpty(): boolean;
+};
+
+
+class CBaseNote implements INote
+{
+    // INote
     private _caption: string;
     private _text: string;
     private _date: Date;
     private _status: eNoteStatus;
     private _editAllowed: boolean;
 
-    //get caption(): string;
-    //set caption(inCaption: string): boolean;
-    get text(): string;
-    set text(inText: string): boolean;
-    get date(): Date;
-    set date(inDate: Date): boolean;
-    get status(): eNoteStatus;
-    set status(inStatus: eNoteStatus): boolean;
-
-    get editAllowed(): boolean;
-    set editAllowed(inEditAllowed: boolean): boolean;
-
-    isEmpty(): boolean;
-};
-
-
-
-class CBaseNote implements INote
-{
-    // INote
-    _caption: string;
-    _text: string;
-    _date: Date;
-    _status: eNoteStatus;
-    _editAllowed: boolean;
-    _isDone: boolean;
+    private _isDone: boolean;
 
     get caption(): string
     {
         return this._caption;
     }
 
-    set caption(inCaption: string): boolean
+    set caption(inCaption: string)
     {
         if (!this._editAllowed)
         {
@@ -78,7 +78,7 @@ class CBaseNote implements INote
         return this._text;
     }
 
-    set text(inText: string): boolean
+    set text(inText: string)
     {
         if (!this._editAllowed)
         {
@@ -91,7 +91,7 @@ class CBaseNote implements INote
     {
         return this._date;
     }
-    set date(inDate: Date): boolean
+    set date(inDate: Date)
     {
         if (!this._editAllowed)
         {
@@ -104,7 +104,7 @@ class CBaseNote implements INote
     {
         return this._status;
     }
-    set status(inStatus: eNoteStatus): boolean
+    set status(inStatus: eNoteStatus)
     {
         if (!this._editAllowed)
         {
@@ -113,9 +113,12 @@ class CBaseNote implements INote
         this._status = inStatus;
     }
 
-    get editAllowed(): boolean;
+    get editAllowed(): boolean
+    {
+        return this._editAllowed;
+    }
 
-    set editAllowed(inEditAllowed: boolean): boolean
+    set editAllowed(inEditAllowed: boolean)
     {
         if (!this._editAllowed)
         {
@@ -144,17 +147,6 @@ class CBaseNote implements INote
     {
         this._isDone = false;
     }
-
-    allowEdit()
-    {
-        this._editAllowed = true;
-    }
-
-    disallowEdit()
-    {
-        this._editAllowed = false;
-    }
-
 }
 
 class CSingleNote extends CBaseNote
@@ -172,7 +164,7 @@ class CSingleNoteWithApprove extends CBaseNote
     constructor(inCaption: string, inText: string)
     {
         super(inCaption, inText);
-        this.disallowEdit();
+        this.editAllowed = false;
     }
 
 };
@@ -237,7 +229,7 @@ let myNote1 = new CSingleNote("My Note", "Buy a coffe");
 toDo.AddNote(myNote1);
 
 let myNote2 = new CSingleNoteWithApprove("My Note", "Buy a coffe");
-myNote2.allowEdit();
+myNote2.editAllowed = false;
 toDo.AddNote(myNote1);
 
 
